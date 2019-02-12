@@ -34,6 +34,21 @@ Authorization: Bearer <token>
 }
 ```
 
+Generate an authentication token for an existing user.
+
+```http
+POST /users/sign_in HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "user": {
+    "email": "yechezkel.ben.avraham@gmail.com",
+    "password": "yczklbnavrhm"
+  }
+}
+```
+
 Fetch all accounts.
 ```http
 GET /accounts HTTP/1.1
