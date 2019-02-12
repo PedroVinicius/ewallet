@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     backports (3.11.4)
+    dotenv (2.6.0)
     multi_json (1.13.1)
     mustermann (1.0.3)
     pg (1.1.4)
@@ -27,6 +28,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   pg
   sequel
   sinatra
