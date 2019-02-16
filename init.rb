@@ -1,6 +1,7 @@
 require 'bundler'
 require 'dotenv'
 require 'yaml'
+require 'openssl'
 
 Bundler.require(:default)
 Dotenv.load
