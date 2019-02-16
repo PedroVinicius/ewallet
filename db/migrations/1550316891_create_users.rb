@@ -3,6 +3,8 @@ Sequel.migration do
     create_table(:users) do
       primary_key :id
 
+      String :first_name
+      String :last_name
       String :email
       String :username
       String :encrypted_password
