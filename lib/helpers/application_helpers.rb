@@ -2,7 +2,7 @@ module Sinatra
   module Ewallet
     module ApplicationHelpers
       def request_body
-        return unless request.post?
+        return if request.get?
         request.body.rewind
 
         ::JSON.parse(request.body.read, symbolize_names: true)
