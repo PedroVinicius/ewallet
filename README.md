@@ -1,8 +1,10 @@
 ## Introduction
 
-e-Wallet is an API made from developers to developers. Through a simple API you're able to easily manage your bank accounts. The only thing you need to do is follow the installation guide bellow and get started managing your money in an efficient and secure way.
+Did you always dreamed about having your own bank but didn't know what to do to achieve that? We can help you with thatQ
 
-With e-Wallet you stay in control of your money and bank transactions. 
+e-Wallet is an API made from developers to developers so anyone can create theyr own bank services. Through a simple API you're able to easily manage your bank accounts. The only thing you need to do is follow the installation guide bellow and get started managing your money in an efficient and secure way.
+
+With e-Wallet you help your customers to keep themselves in control of their money.
 
 ## System Requirements and Installation
 
@@ -57,21 +59,17 @@ Authorization: Bearer <token>
 
 [
   { 
-    "account": {
-      "number": "0001",
-      "name": "Professional Account",
-      "description": "This is the account use for professional purposes.",
-      "bank_id": 1
-    }
+    "number": "0001",
+    "name": "Professional Account",
+    "description": "This is the account use for professional purposes.",
+    "bank_id": 1
   },
 
   { 
-    "account": {
-      "number": "0001",
-      "name": "Personal Account",
-      "description": "This is the account use for personal purposes.",
-      "bank_id": 2
-    }
+    "number": "0001",
+    "name": "Personal Account",
+    "description": "This is the account use for personal purposes.",
+    "bank_id": 2
   }
 ]
 ```
@@ -133,11 +131,27 @@ Accept: application/json
 Authorization: Bearer <token>
 
 {
-  "amount": 123.00
+  "deposit": {
+    "amount": 123.0
+  }
 }
 ```
 
-Transfer money between two accounts.
+Withdraw money from an existing account.
+```http
+POST /accounts/:id/withdraw HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer <token>
+
+{
+  "withdrawal": {
+    "amount": 123.0
+  }
+}
+```
+
+Transfer money between two accounts. In order to send money, you need to be the owner of the sender account.
 ```http
 POST /accounts/:id/transfer/:destination_id HTTP/1.1
 Content-Type: application/json
@@ -145,7 +159,9 @@ Accept: application/json
 Authorization: Bearer <token>
 
 {
-  "amount": 123.00
+  "transference": {
+    "amount": 123.0
+  }
 }
 ```
 
