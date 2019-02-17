@@ -1,13 +1,6 @@
 module Sinatra
   module Ewallet
     module ApplicationHelpers
-      def request_body
-        return if request.get?
-        request.body.rewind
-
-        ::JSON.parse(request.body.read, symbolize_names: true)
-      end
-
       def issue_token(key, data = {})
         default_data = {
           iss: 'ewallet',
