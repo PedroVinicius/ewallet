@@ -10,6 +10,8 @@ gem 'dotenv'
 gem 'rack-contrib'
 gem 'pry'
 gem 'bcrypt'
-gem 'minitest'
-gem 'rack-test'
-gem 'database_cleaner'
+
+group :test do
+  gem 'rack-test'
+  gem 'rspec'
+end

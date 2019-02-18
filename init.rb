@@ -3,11 +3,11 @@ require 'dotenv'
 require 'yaml'
 require 'openssl'
 
-Bundler.require(:default)
-Dotenv.load
-
-APPLICATION_ROOT = File.expand_path('..', __FILE__)
 RACK_ENV = ENV.fetch('RACK_ENV', 'development')
+APPLICATION_ROOT = File.expand_path('..', __FILE__)
+
+Bundler.require(:default, RACK_ENV)
+Dotenv.load
 
 Sequel::Model.plugin :timestamps, update_on_create: true
 Sequel::Model.plugin :json_serializer
