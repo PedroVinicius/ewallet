@@ -16,7 +16,4 @@ COPY . .
 RUN openssl genrsa -out /usr/ewallet/keys/private.pem 2048 && \
     openssl rsa -in /usr/ewallet/keys/private.pem -pubout > ./keys/public.pem
 
-RUN echo "PRIVATE_KEY_PATH=/usr/ewallet/keys/private.pem" >> .env && \
-    echo "PUBLIC_KEY_PATH=/usr/ewallet/keys/public.pem" >> .env
-
 CMD ["bundle", "exec", "rackup"]

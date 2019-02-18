@@ -1,1 +1,5 @@
 keys
+.git
+.gitignore
+.ruby-gemset
+.ruby-version
