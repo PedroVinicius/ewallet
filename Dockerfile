@@ -1,12 +1,22 @@
 FROM ruby:2.6.1-alpine3.8
 
-RUN apk add postgresql-dev
-RUN addgroup -S ewallet
-RUN adduser -S ewallet -G ewallet
-USER ewallet
-WORKDIR /home/ewallet
-COPY Gemfile Gemfile.lock ./
+RUN apk update
+RUN apk add --no-cache openssh-keygen
+RUN apk add make libffi-dev postgresql-dev libgcc gcc libc-dev openssl
+RUN mkdir -p /usr/ewallet/keys
+
+WORKDIR /usr/ewallet
+
+COPY Gemfile /usr/ewallet
+COPY Gemfile.lock /usr/ewallet
 RUN gem install bundler --no-doc
 RUN bundle install
 COPY . .
-CMD [ "rackup" ]
+
+RUN openssl genrsa -out /usr/ewallet/keys/private.pem 2048 && \
+    openssl rsa -in /usr/ewallet/keys/private.pem -pubout > ./keys/public.pem
+
+RUN echo "PRIVATE_KEY_PATH=/usr/ewallet/keys/private.pem" >> .env && \
+    echo "PUBLIC_KEY_PATH=/usr/ewallet/keys/public.pem" >> .env
+
+CMD ["bundle", "exec", "rackup"]
