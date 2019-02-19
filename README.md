@@ -8,17 +8,41 @@ With e-Wallet you help your customers to keep themselves in control of their mon
 
 ## System Requirements and Installation
 
-e-Wallet was built and tested in an Unix environment. Non unix environments aren't supported at this moment¹. In order to install it, you have to choose from one of the following options:
+e-Wallet was built and tested in an Unix environment. Non unix environments aren't supported at this moment. Before getting started, you are required to install [PostgreSQL](https://www.postgresql.org/) and [RVM](https://rvm.io/).
 
-1 - Using Docker Compose (recommended)
+Once you have fullfilled the prerequisites, go forward and:
 
-`docker-compose up`
+1 - Run `rvm install 2.6.1`
 
-2 - Installing all dependencies by yourself
+2 - Run `rvm gemset create ewallet`
+
+3 - Run `gem install bundler --no-doc`
+
+4 - Run `bundle install`
+
+5 - Config the database by moving the `config/database.sample.yml` to `config/database.yml` and changing it according to your settings (remember to create the PostgreSQL database first).
+
+6 - Generate a key pair by running `bin/keygen` from the app root directory.
+
+7 - Point the absolute path for both the private and public key generated in the previous step within a `.env` file and place it at the app root directory.
+
+The variables have to be named as:
+
+`PRIVATE_KEY_PATH='<ABS-PATH>`
+
+`PUBLIC_KEY_PATH='<ABS-PATH>'`
+
+8 - Run `bundle exec rake db:migrate`
+
+9 - Run `rackup`
+
+Here your app will be running on port :9292.
 
 ## API Endpoints
 
-Register a new user
+All endpoints respond with json format. We don't suport other formats at this moment.
+
+First of all, you need to create an user:
 
 ```http
 POST /users HTTP/1.1
@@ -31,10 +55,13 @@ Authorization: Bearer <token>
     "first_name": "יחזקאל",
     "last_name": "בן אברהם",
     "email": "yechezkel.ben.avraham@gmail.com",
+    "username": "yechezkel",
     "password": "yczklbnavrhm"
   }
 }
 ```
+
+So, for subsequent requests you will need to send an authentication token along with each request. 
 
 Generate an authentication token for an existing user.
 
@@ -44,37 +71,37 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "user": {
-    "email": "yechezkel.ben.avraham@gmail.com",
-    "password": "yczklbnavrhm"
-  }
+  "username": "yechezkel.ben.avraham@gmail.com",
+  "password": "yczklbnavrhm"
 }
 ```
 
-Fetch all accounts.
+Fetch all accounts from the logged user.
 ```http
 GET /accounts HTTP/1.1
 Accept: application/json
 Authorization: Bearer <token>
 
 [
-  { 
-    "number": "0001",
+  {
+    "id": 1,
+    "number": 1,
     "name": "Professional Account",
-    "description": "This is the account use for professional purposes.",
-    "bank_id": 1
+    "created_at": "",
+    "updated_at": ""
   },
 
   { 
-    "number": "0001",
-    "name": "Personal Account",
-    "description": "This is the account use for personal purposes.",
-    "bank_id": 2
+    "id": 1,
+    "number": 1,
+    "name": "Professional Account",
+    "created_at": "",
+    "updated_at": ""
   }
 ]
 ```
 
-Create a new account.
+Create a new account and associate it to the logged user.
 ```http
 POST /accounts HTTP/1.1
 Accept: application/json
@@ -82,15 +109,14 @@ Authorization: Bearer <token>
 
 { 
   "account": {
-    "number": "0001",
+    "number": 1,
     "name": "Professional Account",
-    "description": "This is the account use for professional purposes.",
-    "bank_id": 1
+    "user_id": 1
   }
 }
 ```
 
-Fetch a specific account.
+Fetch a specific account including its balance.
 ```http
 GET /accounts/:id HTTP/1.1
 Accept: application/json
@@ -98,10 +124,11 @@ Authorization: Bearer <token>
 
 {
   "account": {
-    "number": "0001",
+    "number": 1,
     "name": "Personal Account",
-    "description": "This is the account I use for personal purposes.",
-    "bank_id": 1
+    "created_at": "",
+    "updated_at": "",
+    "balance": "100.00"
   }
 }
 ```
@@ -115,10 +142,11 @@ Authorization: Bearer <token>
 
 {
   "account": {
-    "number": "0001",
+    "id": 1,
+    "number": 11111,
     "name": "Personal Account",
-    "description": "This is the account I use for personal purposes.",
-    "bank_id": 1
+    "created_at": "",
+    "updated_at": ""
   }
 }
 ```
@@ -151,7 +179,7 @@ Authorization: Bearer <token>
 }
 ```
 
-Transfer money between two accounts. In order to send money, you need to be the owner of the sender account.
+Transfer money between two accounts. In order to send money, you need to be the owner of the sender account. A balance higher than the amount to be sent is required to complete this action.
 ```http
 POST /accounts/:id/transfer/:destination_id HTTP/1.1
 Content-Type: application/json
