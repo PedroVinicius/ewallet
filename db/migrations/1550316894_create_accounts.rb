@@ -9,7 +9,6 @@ Sequel.migration do
       DateTime :created_at
       DateTime :updated_at
 
-      foreign_key :bank_id, :banks, type: 'INTEGER'
       foreign_key :user_id, :users, type: 'INTEGER'
     end
   end
