@@ -17,4 +17,19 @@ namespace :db do
   task :reset do
     Sequel::Migrator.run(DB, MIGRATIONS_PATH, target: 0)
   end
+
+  task :seed do
+    DB.transaction do
+      @user = User.create({
+        first_name: 'John',
+        last_name: 'Doe',
+        email: 'john.doe@gmail.com',
+        username: 'john.doe',
+        password: 'john.doe'
+      })
+
+      @user.add_account(number: 1234, name: "John's personal accont.")
+      @user.add_account(number: 1234, name: "John's secret accont.")
+    end
+  end
 end
