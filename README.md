@@ -8,7 +8,7 @@ With e-Wallet you help your customers to keep themselves in control of their mon
 
 ## System Requirements and Installation
 
-e-Wallet was built and tested in an Unix environment. Non unix environments aren't supported at this moment. Before getting started, you are required to install [PostgreSQL](https://www.postgresql.org/) and [RVM](https://rvm.io/).
+e-Wallet was built and tested in an Unix environment. Non unix environments aren't supported at this moment. Before getting started, you need to install [PostgreSQL](https://www.postgresql.org/) and [RVM](https://rvm.io/).
 
 Once you have fullfilled the prerequisites, go forward and:
 
@@ -26,7 +26,7 @@ Once you have fullfilled the prerequisites, go forward and:
 
 7 - Point the absolute path for both the private and public key generated in the previous step within a `.env` file and place it at the app root directory.
 
-The variables have to be named as:
+The variables need to be named as:
 
 `PRIVATE_KEY_PATH='<ABS-PATH>`
 
@@ -87,16 +87,16 @@ Authorization: Bearer <token>
     "id": 1,
     "number": 1,
     "name": "Professional Account",
-    "created_at": "",
-    "updated_at": ""
+    "created_at": "2019-02-16 22:51:12 -0300",
+    "updated_at": "2019-02-16 22:51:12 -0300"
   },
 
   { 
     "id": 1,
     "number": 1,
     "name": "Professional Account",
-    "created_at": "",
-    "updated_at": ""
+    "created_at": "2019-02-16 22:51:12 -0300",
+    "updated_at": "2019-02-16 22:51:12 -0300"
   }
 ]
 ```
@@ -111,7 +111,9 @@ Authorization: Bearer <token>
   "account": {
     "number": 1,
     "name": "Professional Account",
-    "user_id": 1
+    "user_id": 1,
+    "created_at": "2019-02-16 22:51:12 -0300",
+    "updated_at": "2019-02-16 22:51:12 -0300"
   }
 }
 ```
@@ -126,8 +128,8 @@ Authorization: Bearer <token>
   "account": {
     "number": 1,
     "name": "Personal Account",
-    "created_at": "",
-    "updated_at": "",
+    "created_at": "2019-02-16 22:51:12 -0300",
+    "updated_at": "2019-02-16 22:51:12 -0300",
     "balance": "100.00"
   }
 }
@@ -145,8 +147,8 @@ Authorization: Bearer <token>
     "id": 1,
     "number": 11111,
     "name": "Personal Account",
-    "created_at": "",
-    "updated_at": ""
+    "created_at": "2019-02-16 22:51:12 -0300",
+    "updated_at": "2019-02-16 22:51:12 -0300"
   }
 }
 ```
@@ -192,6 +194,12 @@ Authorization: Bearer <token>
   }
 }
 ```
+
+## Console
+
+If you dont't want to use the API to create your user, you can create it from console.
+
+All you need to execute is `bin/console` from the app root. By doing that, all the models will be imediatelly available for you, and you can experiment as if you were working with Ruby on Rails.
 
 ## Contributing
 
