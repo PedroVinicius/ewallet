@@ -2,7 +2,7 @@
 
 Did you always dreamed about having your own bank but didn't know what to do to achieve that? We can help you with that!
 
-e-Wallet is an API made from developers to developers so anyone can create theyr own bank services. Through a simple API you're able to easily manage your bank accounts. The only thing you need to do is follow the installation guide bellow and get started managing your money in an efficient and secure way.
+e-Wallet is an API made from developers to developers so anyone can create their own bank services. Through a simple API you're able to easily manage your bank accounts. The only thing you need to do is follow the installation guide bellow and get started managing your money in an efficient and secure way.
 
 With e-Wallet you help your customers to keep themselves in control of their money.
 
