@@ -199,7 +199,7 @@ Authorization: Bearer <token>
 
 If you dont't want to use the API to create your user, you can create it from console.
 
-All you need to execute is `bin/console` from the app root. By doing that, all the models will be imediatelly available for you, and you can experiment as if you were working with Ruby on Rails.
+All you need to execute is to run `bin/console` from the app root. By doing that, all the models will be imediatelly available for you, and you can experiment as if you were working with Ruby on Rails.
 
 ## Contributing
 
