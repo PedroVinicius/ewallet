@@ -3,10 +3,8 @@ module Ewallet
     helpers Sinatra::Param
     helpers Sinatra::Ewallet::ApplicationHelpers
 
-    PUBLIC_KEY_PATH  = File.read(ENV.fetch('PUBLIC_KEY_PATH'))
     PRIVATE_KEY_PATH = File.read(ENV.fetch('PRIVATE_KEY_PATH'))
 
-    set :public_key, OpenSSL::PKey.read(PUBLIC_KEY_PATH)
     set :private_key, OpenSSL::PKey.read(PRIVATE_KEY_PATH)
     set :show_exceptions, false
     set :raise_errors, true
@@ -53,7 +51,7 @@ module Ewallet
     end
 
     put '/accounts/:id' do
-      @account = current_user.accounts_dataset.first(id: params[:id])
+      @account = current_user.accounts_dataset.first!(id: params[:id])
       @account.update(params[:account])
 
       json @account
@@ -62,7 +60,7 @@ module Ewallet
     post '/accounts/:id/deposit' do
       param :deposit, Hash, required: true
 
-      @account = current_user.accounts_dataset.first(id: params[:id])
+      @account = current_user.accounts_dataset.first!(id: params[:id])
 
       if @deposit = @account.deposit(params[:deposit][:amount])
         json @deposit
@@ -75,7 +73,7 @@ module Ewallet
     post '/accounts/:id/withdraw' do
       param :withdrawal, Hash, required: true
 
-      @account = current_user.accounts_dataset.first(id: params[:id])
+      @account = current_user.accounts_dataset.first!(id: params[:id])
       @withdraw = @account.withdraw(params[:withdrawal][:amount])
 
       json @withdraw
@@ -84,8 +82,8 @@ module Ewallet
     post '/accounts/:id/transfer/:destination_id' do
       param :transference, Hash, required: true
 
-      @transferor = current_user.accounts_dataset.first(id: params[:id])
-      @transferee = Account.first(id: params[:destination_id])
+      @transferor = current_user.accounts_dataset.first!(id: params[:id])
+      @transferee = Account.first!(id: params[:destination_id])
 
       DB.transaction do
         @transferor.withdraw(params[:transference][:amount])
@@ -102,7 +100,7 @@ module Ewallet
       if @user = User.create(params[:user])
         json @user
       else
-        halt 400
+        halt 400, { 'Content-Type' => 'application/json' }, { success: false, message: 'Was not possible to create the user at this moment.' }.to_json
       end
     end
 
@@ -113,7 +111,7 @@ module Ewallet
         token = issue_token(settings.private_key, { id: @user.id })
         json({ token: token })
       else
-        halt 401, { 'Content-Type' => 'text/plain' }, { success: false, message: 'Access denied!' }.to_json
+        halt 401, { 'Content-Type' => 'application/json' }, { success: false, message: 'Access denied!' }.to_json
       end
     end
   end

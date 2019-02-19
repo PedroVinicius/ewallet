@@ -45,7 +45,7 @@ All endpoints respond with json format. We don't suport other formats at this mo
 First of all, you need to create an user:
 
 ```http
-POST /users HTTP/1.1
+POST /api/v1/users HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer <token>
@@ -66,7 +66,7 @@ So, for subsequent requests you will need to send an authentication token along 
 Generate an authentication token for an existing user.
 
 ```http
-POST /users/sign_in HTTP/1.1
+POST /api/v1/users/sign_in HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
@@ -78,7 +78,7 @@ Content-Type: application/json
 
 Fetch all accounts from the logged user.
 ```http
-GET /accounts HTTP/1.1
+GET /api/v1/accounts HTTP/1.1
 Accept: application/json
 Authorization: Bearer <token>
 
@@ -103,7 +103,7 @@ Authorization: Bearer <token>
 
 Create a new account and associate it to the logged user.
 ```http
-POST /accounts HTTP/1.1
+POST /api/v1/accounts HTTP/1.1
 Accept: application/json
 Authorization: Bearer <token>
 
@@ -120,7 +120,7 @@ Authorization: Bearer <token>
 
 Fetch a specific account including its balance.
 ```http
-GET /accounts/:id HTTP/1.1
+GET /api/v1/accounts/:id HTTP/1.1
 Accept: application/json
 Authorization: Bearer <token>
 
@@ -137,7 +137,7 @@ Authorization: Bearer <token>
 
 Update account's informations.
 ```http
-PUT /accounts/:id HTTP/1.1
+PUT /api/v1/accounts/:id HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer <token>
@@ -155,7 +155,7 @@ Authorization: Bearer <token>
 
 Send money to an existing account.
 ```http
-POST /accounts/:id/deposit HTTP/1.1
+POST /api/v1/accounts/:id/deposit HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer <token>
@@ -169,7 +169,7 @@ Authorization: Bearer <token>
 
 Withdraw money from an existing account.
 ```http
-POST /accounts/:id/withdraw HTTP/1.1
+POST /api/v1/accounts/:id/withdraw HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer <token>
@@ -183,7 +183,7 @@ Authorization: Bearer <token>
 
 Transfer money between two accounts. In order to send money, you need to be the owner of the sender account. A balance higher than the amount to be sent is required to complete this action.
 ```http
-POST /accounts/:id/transfer/:destination_id HTTP/1.1
+POST /api/v1/accounts/:id/transfer/:destination_id HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer <token>
