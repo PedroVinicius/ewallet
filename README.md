@@ -209,4 +209,4 @@ As an open source project, contributions are wellcome, and we adopt a very simpl
 2. Run the tests suite to certify that everything is ok and to avoid regressions.
 3. Create a pull request.
 
-After your pull request has been approved, the code will be merged with the master branch.
+After your pull request has been approved, the code will be merged into the master branch.
