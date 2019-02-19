@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+KEYS_DIR=$(pwd)/keys
+
+mkdir -p $KEYS_DIR
+openssl genrsa -out $KEYS_DIR/private.pem 2048
+openssl rsa -in $KEYS_DIR/private.pem -pubout > $KEYS_DIR/public.pem
