@@ -10,7 +10,7 @@ With e-Wallet you help your customers to keep themselves in control of their mon
 
 e-Wallet was built and tested in an Unix environment. Non unix environments aren't supported at this moment. Before getting started, you need to install [PostgreSQL](https://www.postgresql.org/) and [RVM](https://rvm.io/).
 
-Once you have fullfilled the prerequisites, go forward and:
+Once satisfied the prerequisites, go forward and:
 
 1 - Run `rvm install 2.6.1`
 
@@ -20,17 +20,19 @@ Once you have fullfilled the prerequisites, go forward and:
 
 4 - Run `bundle install`
 
-5 - Config the database by moving the `config/database.sample.yml` to `config/database.yml` and changing it according to your settings (remember to create the PostgreSQL database first).
+5 - Setup the database by moving the `config/database.sample.yml` to `config/database.yml` and changing it according to your settings (remember to create the PostgreSQL database first).
 
 6 - Generate a key pair by running `bin/keygen` from the app root directory.
 
-7 - Point the absolute path for both the private and public key generated in the previous step within a `.env` file and place it at the app root directory.
+7 - Point the absolute path for both the private and public key generated in the previous step using a `.env` file and place it at the app root directory. You can just rename the .env.sample to .env and fill whe variables with the absolute paths.
 
 The variables need to be named as:
 
 `PRIVATE_KEY_PATH='<ABS-PATH>`
 
 `PUBLIC_KEY_PATH='<ABS-PATH>'`
+
+The keys pair is used to sign and validate the JSON Web Tokens.
 
 8 - Run `bundle exec rake db:migrate`
 
@@ -42,7 +44,7 @@ Here your app will be running on port :9292.
 
 All endpoints respond with json format. We don't suport other formats at this moment.
 
-First of all, you need to create an user:
+First of all, you need to create an user so you can manage your account. Without an user, won't be possible to use the API.
 
 ```http
 POST /api/v1/users HTTP/1.1
