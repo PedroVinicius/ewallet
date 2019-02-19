@@ -1,6 +1,5 @@
 class Account < Sequel::Model(:accounts)
   many_to_one :user
-  many_to_one :bank
 
   one_to_many :deposits
   one_to_many :withdrawals
@@ -20,5 +19,15 @@ class Account < Sequel::Model(:accounts)
     raise NotEnoughtBalanceError if amount > balance
 
     self.add_withdrawal(amount: amount)
+  end
+
+  def before_update
+    check_for_changes!
+    super
+  end
+
+  private
+  def check_for_changes!
+    raise NothingChangedError unless self.modified?
   end
 end
