@@ -1,5 +1,6 @@
 require 'sequel'
 require 'yaml'
+require 'bcrypt'
 
 namespace :db do
   Sequel.extension :migration
@@ -20,16 +21,16 @@ namespace :db do
 
   task :seed do
     DB.transaction do
-      @user = User.create({
+      @user = DB[:users].insert({
         first_name: 'John',
         last_name: 'Doe',
-        email: 'john.doe@gmail.com',
         username: 'john.doe',
-        password: 'john.doe'
+        email: 'john.doe@gmail.com',
+        encrypted_password: BCrypt::Password.create('john.doe')
       })
 
-      @user.add_account(number: 1234, name: "John's personal accont.")
-      @user.add_account(number: 1234, name: "John's secret accont.")
+      DB[:accounts].insert({ user_id: @user, number: 1222, name: "John's personal account." })
+      DB[:accounts].insert({ user_id: @user, number: 1333, name: "John's secret account." })
     end
   end
 end
