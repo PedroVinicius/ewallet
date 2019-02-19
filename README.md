@@ -2,8 +2,6 @@
 
 e-Wallet is an API made from developers to developers so anyone can create their own bank services. Through a simple API you're able to easily manage your bank accounts. The only thing you need to do is follow the installation guide bellow and get started managing your money in an efficient and secure way.
 
-With e-Wallet you help your customers to keep themselves in control of their money.
-
 ## System Requirements and Installation
 
 e-Wallet was built and tested in an Unix environment. Non unix environments aren't supported at this moment. Before getting started, you need to install [PostgreSQL](https://www.postgresql.org/) and [RVM](https://rvm.io/).
