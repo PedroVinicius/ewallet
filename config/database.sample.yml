@@ -1,0 +1,15 @@
+development:
+  adapter: postgres
+  host: 127.0.0.1
+  port: 5432
+  database: ewallet
+  user: ewallet
+  password: ewallet
+
+test:
+  adapter: postgres
+  host: 127.0.0.1
+  port: 5432
+  database: ewallet_test
+  user: ewallet
+  password: ewallet
