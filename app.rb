@@ -96,6 +96,16 @@ module Ewallet
       json({ success: true, message: message % [params[:transference][:amount], @transferor.id, @transferee.id] })
     end
 
+    post '/users' do
+      param :user, Hash, required: true
+
+      if @user = User.create(params[:user])
+        json @user
+      else
+        halt 400
+      end
+    end
+
     post '/users/sign_in' do
       @user = User.first(Sequel.lit("username = :username OR email = :username", username: params[:username]))
 
